@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class TestController {
 
-    @RequestMapping
+    @RequestMapping("/test")
     public String testController(@RequestParam(defaultValue =
             "test.@RequestParam Jest to napis przekazany jako parametr do controllera") String test,
                                  Model model){
