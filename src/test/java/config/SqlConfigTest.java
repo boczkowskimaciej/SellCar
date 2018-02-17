@@ -16,7 +16,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
     @RunWith(SpringJUnit4ClassRunner.class)
     @ContextConfiguration(classes = SqlConfig.class)
-    @ActiveProfiles("test")
+    @ActiveProfiles("testH2")
     public class SqlConfigTest {
         @Autowired
         private DataSource dataSource;
