@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import service.CarService;
 
 @Controller
-//@RequestMapping("/car")
 public class SellCarController {
 
     private CarService carService;
