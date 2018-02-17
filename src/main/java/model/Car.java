@@ -4,12 +4,10 @@ package model;
 public class Car {
 
     private long id;
-
-    private String branch;
-
+    private String brand;
     private String model;
-
     private int year;
+    private String link;
 
 //    private int capacity;
 //
@@ -23,10 +21,11 @@ public class Car {
     public Car() {
     }
 
-    public Car(String branch, String model, int year) {
-        this.branch = branch;
+    public Car(String brand, String model, int year, String link) {
+        this.brand = brand;
         this.model = model;
         this.year = year;
+        this.link = link;
     }
 
     public long getId() {
@@ -37,12 +36,12 @@ public class Car {
         this.id = id;
     }
 
-    public String getBranch() {
-        return branch;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setBranch(String branch) {
-        this.branch = branch;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
     public String getModel() {
@@ -59,5 +58,13 @@ public class Car {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public String getLink() {
+        return link;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
     }
 }

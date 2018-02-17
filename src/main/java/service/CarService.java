@@ -12,8 +12,7 @@ public class CarService {
     List<Car> carList = new ArrayList<>();
 
     public CarService() {
-        addCar(new Car("ferrari","enzo",2010));
-        addCar(new Car("porsche","cayman",2012));
+
     }
 
     public void addCar(Car car){

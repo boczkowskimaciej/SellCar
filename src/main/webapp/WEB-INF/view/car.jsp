@@ -15,14 +15,16 @@
 
 
 <c:forEach items="${allCars}" var="car">
-    <li>${car.branch} ${car.model} ${car.year}</li>
+    <li>${car.brand} ${car.model} ${car.year}
+            <a href="${car.link}">photo this ${car.brand}</a>
+
+    </li>
 </c:forEach>
 
-
-<form>
+<form method="post" >
     <div>
-        Branch<br>
-        <select>
+        Brand<br>
+        <select name="brand">
             <option value="all">all</option>
             <option value="honda">honda</option>
             <option value="renault">renault</option>
@@ -34,7 +36,7 @@
 
     <div>
     Model<br>
-    <select>
+    <select name="model">
         <option value="all">all</option>
         <option value="civic">civic</option>
         <option value="accord">accord</option>
@@ -51,7 +53,7 @@
 
     <div>
         Year<br>
-        <select>
+        <select name="year">
             <option value="2018">2018</option>
             <option value="2017">2017</option>
             <option value="2016">2016</option>
@@ -66,9 +68,12 @@
             <option value="2007">2007</option>
         </select>
     </div>
+    <div>
+        <input type="text" name="link" value="insert link into photo car">
+    </div>
 
     <br>
-    <input type="submit" name="addCar" value="add Car">
+    <button type="submit" name="addCar" value="addCar">add Car</button>
 </form>
 
 </body>
