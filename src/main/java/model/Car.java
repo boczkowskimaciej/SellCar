@@ -28,6 +28,9 @@ public class Car {
         this.link = link;
     }
 
+    public Car(int id, String brand, String model, int year, String link) {
+    }
+
     public long getId() {
         return id;
     }
