@@ -30,7 +30,7 @@ import static org.assertj.core.api.Assertions.assertThat;
         public void selectAllCars() {
             NamedParameterJdbcTemplate template = new NamedParameterJdbcTemplate(dataSource);
             List<Car> cars = template.query("SELECT * FROM carH2", (rs, rowNum) ->
-                    new Car(rs.getInt("id"),rs.getString("brand"),
+                    new Car(rs.getLong("id"),rs.getString("brand"),
                             rs.getString("model"),rs.getInt("year"),
                             rs.getString("link")));
 

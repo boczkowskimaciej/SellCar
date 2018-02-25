@@ -3,7 +3,7 @@ package model;
 
 public class Car {
 
-    private long id;
+    private Long id;
     private String brand;
     private String model;
     private int year;
@@ -28,14 +28,20 @@ public class Car {
         this.link = link;
     }
 
-    public Car(int id, String brand, String model, int year, String link) {
+
+    public Car(Long id, String brand, String model, int year, String link) {
+        this.id = id;
+        this.brand = brand;
+        this.model = model;
+        this.year = year;
+        this.link = link;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

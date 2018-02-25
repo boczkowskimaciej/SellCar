@@ -1,5 +1,6 @@
 package config;
 
+import entity.CarEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -61,7 +62,7 @@ import java.util.Properties;
             LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
 
             entityManagerFactoryBean.setDataSource(dataSource);
-            entityManagerFactoryBean.setPackagesToScan(CarRepository.class.getPackage().getName());
+            entityManagerFactoryBean.setPackagesToScan(CarEntity.class.getPackage().getName());
             entityManagerFactoryBean.setPersistenceUnitName("myPersistenceUnit");
 
             HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
