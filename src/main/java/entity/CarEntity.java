@@ -8,7 +8,7 @@ public class CarEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String brand;
     private String model;
     private int year;
@@ -25,7 +25,7 @@ public class CarEntity {
         this.link = link;
     }
 
-    public CarEntity(long id, String brand, String model, int year, String link) {
+    public CarEntity(Long id, String brand, String model, int year, String link) {
         this.id = id;
         this.brand = brand;
         this.model = model;
@@ -35,7 +35,7 @@ public class CarEntity {
 
 
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 

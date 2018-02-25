@@ -2,6 +2,7 @@ package service;
 
 import entity.CarEntity;
 import model.Car;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import repository.CarRepository;
 
@@ -13,9 +14,10 @@ public class CarService {
 
     private CarRepository carRepository;
 
-    public CarService() {
-    }
+//    public CarService() {
+//    }
 
+//    @Autowired
     public CarService(CarRepository carRepository) {
         this.carRepository = carRepository;
     }
