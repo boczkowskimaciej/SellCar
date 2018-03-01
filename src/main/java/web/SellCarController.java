@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import service.CarService;
 
 @Controller
+@RequestMapping("/display")
 public class SellCarController {
 
     private CarService carService;
@@ -15,33 +16,51 @@ public class SellCarController {
         this.carService = carService;
     }
 
-    @GetMapping("/display")
+    @GetMapping("")
     public String displayAllCars(Model model){
         model.addAttribute("allCars",carService.displayAllCars());
         return "car";
     }
 
+//    @PostMapping
+//    public String addCar(@ModelAttribute Car car, Model model,
+//                         @RequestParam(name = "addCar", defaultValue = "") String requestAdd){
+//        if (requestAdd.equals("addCar")){
+//            carService.addCar(car);
+//            model.addAttribute("allCars",carService.displayAllCars());
+//        }
+//        return "redirect:display";
+//    }
+
+
+//    @PostMapping
+//    public String removeCar(Model model,
+//                             @RequestParam(name = "removeCar", defaultValue = "") String requestRemove){
+//                carService.removeCarById(Long.valueOf(requestRemove));
+//                model.addAttribute("allCars",carService.displayAllCars());
+//        return "redirect:display";
+//    }
+
     @PostMapping
-    public String addCar(Model model, @RequestParam("brand") String brand,
-                         @RequestParam("model") String modelCar,
-                         @RequestParam("year") int year,
-                         @RequestParam("link") String link,
-                         @RequestParam("addCar") String request
-                         ){
-        Car car = new Car(brand,modelCar,year,link);
-        if (request.equals("addCar")){
+    public String action(@ModelAttribute Car car,
+                       Model model,
+                       @RequestParam(name = "addCar", defaultValue = "") String requestAdd,
+                       @RequestParam(name = "removeCar", defaultValue = "") String requestRemove){
+        if (requestAdd.equals("addCar")){
             carService.addCar(car);
             model.addAttribute("allCars",carService.displayAllCars());
+            return "redirect:display";
         }
-        return "redirect:display";
+        if (Long.valueOf(requestRemove) != null){
+            carService.removeCarById(Long.valueOf(requestRemove));
+            model.addAttribute("allCars",carService.displayAllCars());
+            return "redirect:display";
+        }
+        else
+        {
+            throw new IllegalArgumentException();
+        }
     }
 
 
-
-//    @RequestMapping
-//    public String testController(@ModelAttribute Car car, Model model){
-//        model.addAttribute("car",car);
-//
-//        return "car";
-//    }
 }

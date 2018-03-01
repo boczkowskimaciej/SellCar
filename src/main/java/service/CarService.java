@@ -30,6 +30,10 @@ public class CarService {
         carRepository.delete(fromModelToEntity(car));
     }
 
+    public void removeCarById(Long id){
+        carRepository.deleteById(id);
+    }
+
     public List<Car> displayAllCars(){
         return fromEntityToModel(carRepository.findAll());
     }
