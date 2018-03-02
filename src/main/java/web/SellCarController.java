@@ -45,11 +45,16 @@ public class SellCarController {
     public String action(@ModelAttribute Car car,
                        Model model,
                        @RequestParam(name = "addCar", defaultValue = "") String requestAdd,
-                       @RequestParam(name = "removeCar", defaultValue = "") String requestRemove){
+                       @RequestParam(name = "removeCar", defaultValue = "") String requestRemove,
+                       @RequestParam(name = "searchByBrand", defaultValue = "") String requestSearchByBrand,
+                       @RequestParam(name = "searchByBrandValue", defaultValue = "") String requestSearchByBrandValue){
         if (requestAdd.equals("addCar")){
             carService.addCar(car);
             model.addAttribute("allCars",carService.displayAllCars());
             return "redirect:display";
+        }
+        if (requestSearchByBrand.equals("searchByBrand")){
+            return "redirect:display/brand";
         }
         if (Long.valueOf(requestRemove) != null){
             carService.removeCarById(Long.valueOf(requestRemove));
@@ -60,6 +65,13 @@ public class SellCarController {
         {
             throw new IllegalArgumentException();
         }
+    }
+
+    @RequestMapping("/brand")
+    public String displayAllCarsFilterByBrand(Model model,
+                                              @RequestParam(name = "searchByBrandValue", defaultValue = "") String brand){
+        model.addAttribute("allCars",carService.searchByBrand(brand));
+        return "carSearch";
     }
 
 

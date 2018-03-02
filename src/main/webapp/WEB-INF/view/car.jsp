@@ -21,6 +21,11 @@
            <button type="submit" name="removeCar" value="${car.id}">remove car</button>
     </li>
 </c:forEach>
+    <br>
+    <div>
+        <button type="submit" name="searchByBrand" value="searchByBrand">search</button>
+    </div>
+    <br>
 
     <div>
         Brand<br>
@@ -71,6 +76,9 @@
     </div>
     <br>
     <button type="submit" name="addCar" value="addCar">add Car</button>
+    <br>
+
+
 
 </form>
 

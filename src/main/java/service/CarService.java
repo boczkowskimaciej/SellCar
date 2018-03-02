@@ -57,4 +57,11 @@ public class CarService {
         return carList;
     }
 
+    public List<Car> searchByBrand(String brand){
+        return fromEntityToModel(carRepository.searchByBrand(brand));
+    }
+    public List<Car> searchByModel(String model){
+        return fromEntityToModel(carRepository.searchByBrand(model));
+    }
+
 }
