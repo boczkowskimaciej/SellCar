@@ -30,6 +30,10 @@ public class CarService {
         carRepository.delete(fromModelToEntity(car));
     }
 
+    public void removeCarById(Long id){
+        carRepository.deleteById(id);
+    }
+
     public List<Car> displayAllCars(){
         return fromEntityToModel(carRepository.findAll());
     }
@@ -51,6 +55,13 @@ public class CarService {
             carList.add(fromEntityToModel(carEntity.get(i)));
         }
         return carList;
+    }
+
+    public List<Car> searchByBrand(String brand){
+        return fromEntityToModel(carRepository.searchByBrand(brand));
+    }
+    public List<Car> searchByModel(String model){
+        return fromEntityToModel(carRepository.searchByBrand(model));
     }
 
 }
