@@ -74,10 +74,13 @@ public class SellCarController {
                                               @ModelAttribute Car car){
 
         if (brand.equals("all") || (model.equals("all"))){
-            if (brand.equals("all")){
+            if (brand.equals("all") && !(model.equals("all"))){
+                model1.addAttribute("allCars",carService.searchByModel(car.getModel()));}
+            if (model.equals("all") && !(brand.equals("all"))){
+                model1.addAttribute("allCars",carService.searchByBrand(car.getBrand()));}
+            if (brand.equals("all") && (model.equals("all"))){
                 model1.addAttribute("allCars",carService.displayAllCars());}
-            if (model.equals("all")){
-                model1.addAttribute("allCars",carService.displayAllCars());}
+
             return "carSearch";
         }
 
