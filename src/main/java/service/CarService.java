@@ -60,8 +60,9 @@ public class CarService {
     public List<Car> searchByBrand(String brand){
         return fromEntityToModel(carRepository.searchByBrand(brand));
     }
+
     public List<Car> searchByModel(String model){
-        return fromEntityToModel(carRepository.searchByBrand(model));
+        return fromEntityToModel(carRepository.searchByModel(model));
     }
 
 }

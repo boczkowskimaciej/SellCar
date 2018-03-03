@@ -23,7 +23,7 @@
 </c:forEach>
     <br>
     <div>
-        <button type="submit" name="searchByBrand" value="searchByBrand">search</button>
+        <button type="submit" name="search" value="search">search</button>
     </div>
     <br>
 

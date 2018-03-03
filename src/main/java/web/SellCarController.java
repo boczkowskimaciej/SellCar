@@ -46,16 +46,16 @@ public class SellCarController {
                        Model model,
                        @RequestParam(name = "addCar", defaultValue = "") String requestAdd,
                        @RequestParam(name = "removeCar", defaultValue = "") String requestRemove,
-                       @RequestParam(name = "searchByBrand", defaultValue = "") String requestSearchByBrand,
-                       @RequestParam(name = "searchByBrandValue", defaultValue = "") String requestSearchByBrandValue){
+                       @RequestParam(name = "search", defaultValue = "") String search){
         if (requestAdd.equals("addCar")){
             carService.addCar(car);
             model.addAttribute("allCars",carService.displayAllCars());
             return "redirect:display";
         }
-        if (requestSearchByBrand.equals("searchByBrand")){
-            return "redirect:display/brand";
+        if (search.equals("search")){
+            return "redirect:display/search";
         }
+
         if (Long.valueOf(requestRemove) != null){
             carService.removeCarById(Long.valueOf(requestRemove));
             model.addAttribute("allCars",carService.displayAllCars());
@@ -67,12 +67,30 @@ public class SellCarController {
         }
     }
 
-    @RequestMapping("/brand")
-    public String displayAllCarsFilterByBrand(Model model,
-                                              @RequestParam(name = "searchByBrandValue", defaultValue = "") String brand){
-        model.addAttribute("allCars",carService.searchByBrand(brand));
+    @RequestMapping("/search")
+    public String displayAllCarsFilterByBrand(Model model1,
+                                              @RequestParam(name = "brand", defaultValue = "all") String brand,
+                                              @RequestParam(name = "model", defaultValue = "all") String model,
+                                              @ModelAttribute Car car){
+
+        if (brand.equals("all") || (model.equals("all"))){
+            if (brand.equals("all")){
+                model1.addAttribute("allCars",carService.displayAllCars());}
+            if (model.equals("all")){
+                model1.addAttribute("allCars",carService.displayAllCars());}
+            return "carSearch";
+        }
+
+        if (brand.equals(car.getBrand())) {
+            model1.addAttribute("allCars", carService.searchByBrand(brand));
+        }
+        if (model.equals(car.getModel())) {
+            model1.addAttribute("allCars", carService.searchByModel(model));
+        }
+
         return "carSearch";
     }
+
 
 
 }
