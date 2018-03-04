@@ -65,4 +65,22 @@ public class CarService {
         return fromEntityToModel(carRepository.searchByModel(model));
     }
 
+    public List<Car> searchByBrandAndModel(String brand,String model){
+        return fromEntityToModel(carRepository.searchByBrandAndModel(brand,model));
+    }
+
+    public List<Car> searchByYear(int yearFrom,int yearTo){
+        return fromEntityToModel(carRepository.searchByYear(yearFrom,yearTo));
+    }
+    public List<Car> searchByBrandAndYear(String brand,int yearFrom,int yearTo){
+        return fromEntityToModel(carRepository.searchByBrandAndYear(brand,yearFrom,yearTo));
+    }
+    public List<Car> searchByModelAndYear(String model,int yearFrom,int yearTo){
+        return fromEntityToModel(carRepository.searchByModelAndYear(model,yearFrom,yearTo));
+    }
+    public List<Car> searchByBrandAndModelAndYear(String brand,String model,int yearFrom,int yearTo){
+        return fromEntityToModel(carRepository.searchByBrandAndModelAndYear(brand,model,yearFrom,yearTo));
+    }
+
+
 }

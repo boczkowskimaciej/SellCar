@@ -16,18 +16,6 @@
 <form method="post" >
 
     <br>
-    <%--<div>--%>
-        <%--<input type="text" name="searchByBrandValue" value="search by brand">--%>
-        <%--<button type="submit" name="searchByBrand" value="searchByBrandValue">search</button>--%>
-    <%--</div>--%>
-    <%--<div>--%>
-        <%--<input type="text" name="searchByModelValue" value="search by model">--%>
-        <%--<button type="submit" name="searchByModel" value="searchByModelValue">search</button>--%>
-    <%--</div>--%>
-    <%--<div>--%>
-        <%--<button type="submit" name="search" value="search">search</button>--%>
-    <%--</div>  --%>
-
     <div>
         Brand<br>
         <select name="brand">
@@ -56,9 +44,14 @@
         </select>
     </div>
     <div>
+        <input type="text" name="yearFrom" value="1900">
+        <input type="text" name="yearTo" value="2018">
+    </div>
+    <div>
         <button type="submit" name="search" value="search">search</button>
     </div>
     <br>
+
 
 
 
