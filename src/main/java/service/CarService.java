@@ -41,12 +41,12 @@ public class CarService {
 
     public CarEntity fromModelToEntity(Car carModel){
         return new CarEntity(carModel.getId(),carModel.getBrand(),
-                carModel.getModel(),carModel.getYear(),carModel.getLink());
+                carModel.getModel(),carModel.getYear(),carModel.getLink(),carModel.getPrice());
     }
 
     public Car fromEntityToModel(CarEntity carEntity){
         return new Car(carEntity.getId(), carEntity.getBrand(),carEntity.getModel(),
-                carEntity.getYear(),carEntity.getLink());
+                carEntity.getYear(),carEntity.getLink(),carEntity.getPrice());
     }
 
     public List<Car> fromEntityToModel(List<CarEntity> carEntity){
@@ -82,5 +82,30 @@ public class CarService {
         return fromEntityToModel(carRepository.searchByBrandAndModelAndYear(brand,model,yearFrom,yearTo));
     }
 
+    public List<Car> searchByPrice(int priceFrom, int priceTo){
+        return fromEntityToModel(carRepository.searchByPrice(priceFrom,priceTo));
+    }
+    public List<Car> searchByBrandAndPrice(String brand,int priceFrom, int priceTo){
+        return fromEntityToModel(carRepository.searchByBrandAndPrice(brand,priceFrom,priceTo));
+    }
+    public List<Car> searchByModelAndPrice(String model,int priceFrom, int priceTo){
+        return fromEntityToModel(carRepository.searchByModelAndPrice(model,priceFrom,priceTo));
+    }
+    public List<Car> searchByYearAndPrice(int yearFrom,int yearTo,int priceFrom, int priceTo){
+        return fromEntityToModel(carRepository.searchByYearAndPrice(yearFrom,yearTo,priceFrom,priceTo));
+    }
+    public List<Car> searchByBrandAndModelAndPrice(String brand,String model,int priceFrom, int priceTo){
+        return fromEntityToModel(carRepository.searchByBrandAndModelAndPrice(brand,model,priceFrom,priceTo));
+    }
+
+    public List<Car> searchByBrandAndYearAndPrice(String brand,int yearFrom,int yearTo,int priceFrom, int priceTo){
+        return fromEntityToModel(carRepository.searchByBrandAndYearAndPrice(brand,yearFrom,yearTo,priceFrom,priceTo));
+    }
+    public List<Car> searchByModelAndYearAndPrice(String model,int yearFrom,int yearTo,int priceFrom, int priceTo){
+        return fromEntityToModel(carRepository.searchByModelAndYearAndPrice(model,yearFrom,yearTo,priceFrom,priceTo));
+    }
+    public List<Car> searchByBrandAndModelAndYearAndPrice(String brand,String model,int yearFrom,int yearTo,int priceFrom, int priceTo){
+        return fromEntityToModel(carRepository.searchByBrandAndModelAndYearAndPrice(brand,model,yearFrom,yearTo,priceFrom,priceTo));
+    }
 
 }

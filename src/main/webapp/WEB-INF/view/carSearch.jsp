@@ -44,8 +44,14 @@
         </select>
     </div>
     <div>
+        <br>Year<br>
         <input type="text" name="yearFrom" value="1900">
-        <input type="text" name="yearTo" value="2018">
+        <input type="text" name="yearTo" >
+    </div>
+    <div>
+        <br>Price<br>
+        <input type="text" name="priceFrom" value="0">
+        <input type="text" name="priceTo" >
     </div>
     <div>
         <button type="submit" name="search" value="search">search</button>
@@ -58,6 +64,7 @@
     <c:forEach items="${allCars}" var="car">
         <li>${car.brand} ${car.model} ${car.year}
             <a href="${car.link}">photo this ${car.brand}</a>
+                ${car.price}
         </li>
     </c:forEach>
 

@@ -34,31 +34,30 @@ public interface CarRepository extends JpaRepository<CarEntity, Long> {
     @Query("SELECT c FROM CarEntity c WHERE brand like ?1% and model LIKE ?2% and year >=?3 and year <=?4")
     List<CarEntity> searchByBrandAndModelAndYear(String brand,String model,int yearFrom, int yearTo);
 
+    @Query("SELECT c FROM CarEntity c WHERE c.price >= ?1 and c.price <= ?2 ")
+    List<CarEntity> searchByPrice(int priceFrom,int priceTo);
+
+    @Query("SELECT c FROM CarEntity c WHERE brand like ?1% and c.price >= ?2 and c.price <= ?3 ")
+    List<CarEntity> searchByBrandAndPrice(String brand,int priceFrom,int priceTo);
+
+    @Query("SELECT c FROM CarEntity c WHERE model like ?1% and c.price >= ?2 and c.price <= ?3 ")
+    List<CarEntity> searchByModelAndPrice(String model,int priceFrom,int priceTo);
+
+    @Query("SELECT c FROM CarEntity c WHERE c.year >= ?1 and c.year <= ?2 and c.price >= ?3 and c.price <= ?4 ")
+    List<CarEntity> searchByYearAndPrice(int yearFrom,int yearTo,int priceFrom,int priceTo);
+
+    @Query("SELECT c FROM CarEntity c WHERE brand like ?1% and model like ?2% and c.price >= ?3 and c.price <= ?4 ")
+    List<CarEntity> searchByBrandAndModelAndPrice(String brand,String model, int priceFrom,int priceTo);
+
+    @Query("SELECT c FROM CarEntity c WHERE brand like ?1% and c.year >= ?2 and c.year <= ?3 and c.price >= ?4 and c.price <= ?5 ")
+    List<CarEntity> searchByBrandAndYearAndPrice(String brand, int yearFrom,int yearTo,int priceFrom,int priceTo);
+
+    @Query("SELECT c FROM CarEntity c WHERE model like ?1% and c.year >= ?2 and c.year <= ?3 and c.price >= ?4 and c.price <= ?5 ")
+    List<CarEntity> searchByModelAndYearAndPrice(String model, int yearFrom,int yearTo,int priceFrom,int priceTo);
+
+    @Query("SELECT c FROM CarEntity c WHERE brand like ?1% and model like ?2% and c.year >= ?3 and c.year <= ?4 and c.price >= ?5 and c.price <= ?6 ")
+    List<CarEntity> searchByBrandAndModelAndYearAndPrice(String brand,String model, int yearFrom,int yearTo,int priceFrom,int priceTo);
 
 
-//    @Query("SELECT c FROM CarEntity c WHERE c.year >= '2007' and c.year <= '2018' ")
-////    @Query("SELECT c FROM CarEntity c WHERE c.year >= 'yearFrom' and c.year <= 'yearTo' ")
-//    List<CarEntity> searchByYear(@Param("yearFrom") int yearFrom,
-//                                 @Param("yearTo") int yearTo);
-
-
-//    @Query("SELECT c FROM CarEntity c WHERE year LIKE ?1% ")
-//    List<CarEntity> searchByYear(int year);
 }
 
-//    @Query("SELECT t FROM Todo t WHERE t.title = 'title'")
-//    public List<Todo> findByTitle();
-
-//    @Transactional(readOnly = true)
-//    public List<User> findBy(String name){
-//        Query query = em.createQuery("select u from User u where u.firstName like :name");
-//        query.setParameter("name", "%" + name + "%");
-//        return query.getResultList();
-//    }
-//
-//    @Transactional
-//    public User findByEmail(String email) {
-//        Query query = em.createQuery("select u from User u where u.email = :email");
-//        query.setParameter("email", email);
-//        return (User) query.getSingleResult();
-//    }
