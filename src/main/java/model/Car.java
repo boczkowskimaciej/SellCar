@@ -15,27 +15,43 @@ public class Car {
 //
 //    private String petrol;
 //
-//    private int price;
+    private int price;
 
 
     public Car() {
     }
 
-    public Car(String brand, String model, int year, String link) {
+//    public Car(String brand, String model, int year, String link) {
+//        this.brand = brand;
+//        this.model = model;
+//        this.year = year;
+//        this.link = link;
+//    }
+
+    public Car(String brand, String model, int year, String link, int price) {
         this.brand = brand;
         this.model = model;
         this.year = year;
         this.link = link;
+        this.price = price;
     }
 
-
-    public Car(Long id, String brand, String model, int year, String link) {
+    public Car(Long id, String brand, String model, int year, String link, int price) {
         this.id = id;
         this.brand = brand;
         this.model = model;
         this.year = year;
         this.link = link;
+        this.price = price;
     }
+
+//    public Car(Long id, String brand, String model, int year, String link) {
+//        this.id = id;
+//        this.brand = brand;
+//        this.model = model;
+//        this.year = year;
+//        this.link = link;
+//    }
 
     public Long getId() {
         return id;
@@ -75,5 +91,13 @@ public class Car {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 }

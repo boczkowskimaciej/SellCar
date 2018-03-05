@@ -32,7 +32,7 @@ import static org.assertj.core.api.Assertions.assertThat;
             List<Car> cars = template.query("SELECT * FROM carH2", (rs, rowNum) ->
                     new Car(rs.getLong("id"),rs.getString("brand"),
                             rs.getString("model"),rs.getInt("year"),
-                            rs.getString("link")));
+                            rs.getString("link"),rs.getInt("price")));
 
             assertThat(cars).hasSize(2);
         }
