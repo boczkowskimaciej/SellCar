@@ -33,7 +33,6 @@ import static org.assertj.core.api.Assertions.assertThat;
                     new Car(rs.getLong("id"),rs.getString("brand"),
                             rs.getString("model"),rs.getInt("year"),
                             rs.getString("link"),rs.getInt("price")));
-
             assertThat(cars).hasSize(2);
         }
     }

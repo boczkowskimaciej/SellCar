@@ -68,14 +68,14 @@ public class SellCarController {
     }
 
     @RequestMapping("/search")
-    public String displayAllCarsFilterByBrand(Model model1,
-                                              @RequestParam(name = "brand", defaultValue = "all") String brand,
-                                              @RequestParam(name = "model", defaultValue = "all") String model,
-                                              @RequestParam(name = "yearFrom", defaultValue = "1899") int yearFrom,
-                                              @RequestParam(name = "yearTo", defaultValue = "2020") int yearTo,
-                                              @RequestParam(name = "priceFrom", defaultValue = "0") int priceFrom,
-                                              @RequestParam(name = "priceTo", defaultValue = "2147483647") int priceTo,
-                                              @ModelAttribute Car car) {
+    public String displayAllCarsFilter(Model model1,
+                                       @RequestParam(name = "brand", defaultValue = "all") String brand,
+                                       @RequestParam(name = "model", defaultValue = "all") String model,
+                                       @RequestParam(name = "yearFrom", defaultValue = "1899") int yearFrom,
+                                       @RequestParam(name = "yearTo", defaultValue = "2020") int yearTo,
+                                       @RequestParam(name = "priceFrom", defaultValue = "0") int priceFrom,
+                                       @RequestParam(name = "priceTo", defaultValue = "2147483647") int priceTo,
+                                       @ModelAttribute Car car) {
 
         if (brand.equals("all") && (model.equals("all")) && (yearFrom == 1899) && (yearTo == 2020) && (priceFrom == 0) && (priceTo == 2147483647)) {
             model1.addAttribute("allCars", carService.displayAllCars());
