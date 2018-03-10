@@ -1,5 +1,6 @@
 package web;
 
+import help.CarFilter;
 import model.Car;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,92 +69,108 @@ public class SellCarController {
     }
 
     @RequestMapping("/search")
-    public String displayAllCarsFilterByBrand(Model model1,
-                                              @RequestParam(name = "brand", defaultValue = "all") String brand,
-                                              @RequestParam(name = "model", defaultValue = "all") String model,
-                                              @RequestParam(name = "yearFrom", defaultValue = "1899") int yearFrom,
-                                              @RequestParam(name = "yearTo", defaultValue = "2020") int yearTo,
-                                              @RequestParam(name = "priceFrom", defaultValue = "0") int priceFrom,
-                                              @RequestParam(name = "priceTo", defaultValue = "2147483647") int priceTo,
-                                              @ModelAttribute Car car) {
+    public String displayAllCarsFilter(Model model1,
+                                       @ModelAttribute CarFilter carFilter) {
 
-        if (brand.equals("all") && (model.equals("all")) && (yearFrom == 1899) && (yearTo == 2020) && (priceFrom == 0) && (priceTo == 2147483647)) {
+        if (carFilter.getBrand() == null && (carFilter.getModel()) == null && (carFilter.getYearFrom() == 0)
+                && (carFilter.getYearTo() == 0) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 0)) {
             model1.addAttribute("allCars", carService.displayAllCars());
         }
 
-        if (brand.equals("all") || (model.equals("all")) || (yearFrom != 1899) || (yearTo != 2020) || (priceFrom > 0) || (priceTo < 2147483647)) {
+            else {
+            //all
+            if (carFilter.getBrand().equals("all") && (carFilter.getModel().equals("all")) && (carFilter.getYearFrom() == 1900)
+                    && (carFilter.getYearTo() == 2018) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 2147483647)) {
+                model1.addAttribute("allCars", carService.displayAllCars());
+            }
+
             //brand
-            if (!brand.equals("all") && (model.equals("all")) && (yearFrom == 1899) && (yearTo == 2020) && (priceFrom == 0) && (priceTo == 2147483647)) {
-                model1.addAttribute("allCars", carService.searchByBrand(car.getBrand()));
+            if (!carFilter.getBrand().equals("all") && (carFilter.getModel().equals("all")) && (carFilter.getYearFrom() == 1900)
+                    && (carFilter.getYearTo() == 2018) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 2147483647)) {
+                model1.addAttribute("allCars", carService.searchByBrand(carFilter.getBrand()));
             }
 
             //model
-            if (brand.equals("all") && (!model.equals("all")) && (yearFrom == 1899) && (yearTo == 2020) && (priceFrom == 0) && (priceTo == 2147483647)) {
-                model1.addAttribute("allCars", carService.searchByModel(car.getModel()));
+            if (carFilter.getBrand().equals("all") && (!carFilter.getModel().equals("all")) && (carFilter.getYearFrom() == 1900) &&
+                    (carFilter.getYearTo() == 2018) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 2147483647)) {
+                model1.addAttribute("allCars", carService.searchByModel(carFilter.getModel()));
             }
 
             //brand, model
-            if (!brand.equals("all") && (!model.equals("all")) && (yearFrom == 1899) && (yearTo == 2020) && (priceFrom == 0) && (priceTo == 2147483647)) {
-                model1.addAttribute("allCars", carService.searchByBrandAndModel(car.getBrand(), car.getModel()));
+            if (!carFilter.getBrand().equals("all") && (!carFilter.getModel().equals("all")) && (carFilter.getYearFrom() == 1900) &&
+                    (carFilter.getYearTo() == 2018) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 2147483647)) {
+                model1.addAttribute("allCars", carService.searchByBrandAndModel(carFilter.getBrand(), carFilter.getModel()));
             }
 
             //year
-            if (brand.equals("all") && (model.equals("all")) && ((yearFrom != 1899) || (yearTo != 2020)) && (priceFrom == 0) && (priceTo == 2147483647)) {
-                model1.addAttribute("allCars", carService.searchByYear(yearFrom, yearTo));
+            if (carFilter.getBrand().equals("all") && (carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 2147483647)) {
+                model1.addAttribute("allCars", carService.searchByYear(carFilter.getYearFrom(), carFilter.getYearTo()));
             }
 
             //brand, year
-            if (!brand.equals("all") && (model.equals("all")) && ((yearFrom != 1899) || (yearTo != 2020)) && (priceFrom == 0) && (priceTo == 2147483647)) {
-                model1.addAttribute("allCars", carService.searchByBrandAndYear(car.getBrand(), yearFrom, yearTo));
+            if (!carFilter.getBrand().equals("all") && (carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 2147483647)) {
+                model1.addAttribute("allCars", carService.searchByBrandAndYear(carFilter.getBrand(), carFilter.getYearFrom(), carFilter.getYearTo()));
             }
 
             //model, year
-            if (brand.equals("all") && (!model.equals("all")) && ((yearFrom != 1899) || (yearTo != 2020)) && (priceFrom == 0) && (priceTo == 2147483647)) {
-                model1.addAttribute("allCars", carService.searchByModelAndYear(car.getModel(), yearFrom, yearTo));
+            if (carFilter.getBrand().equals("all") && (!carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 2147483647)) {
+                model1.addAttribute("allCars", carService.searchByModelAndYear(carFilter.getModel(), carFilter.getYearFrom(), carFilter.getYearTo()));
             }
 
             //brand, model, year
-            if (!brand.equals("all") && (!model.equals("all")) && ((yearFrom != 1899) || (yearTo != 2020)) && (priceFrom == 0) && (priceTo == 2147483647)) {
-                model1.addAttribute("allCars", carService.searchByBrandAndModelAndYear(car.getBrand(), car.getModel(), yearFrom, yearTo));
+            if (!carFilter.getBrand().equals("all") && (!carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 2147483647)) {
+                model1.addAttribute("allCars", carService.searchByBrandAndModelAndYear(carFilter.getBrand(), carFilter.getModel(), carFilter.getYearFrom(), carFilter.getYearTo()));
             }
 
             // price
-            if (brand.equals("all") && (model.equals("all")) && ((yearFrom != 1899) || (yearTo != 2020)) && ((priceFrom > 0) || (priceTo < 2147483647))) {
-                model1.addAttribute("allCars", carService.searchByPrice(priceFrom,priceTo));
+            if (carFilter.getBrand().equals("all") && (carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && ((carFilter.getPriceFrom() > 0) || (carFilter.getPriceTo() < 2147483647))) {
+                model1.addAttribute("allCars", carService.searchByPrice(carFilter.getPriceFrom(),carFilter.getPriceTo()));
             }
 
             //brand, price
-            if (!brand.equals("all") && (model.equals("all")) && ((yearFrom != 1899) || (yearTo != 2020)) && ((priceFrom > 0) || (priceTo < 2147483647))) {
-                model1.addAttribute("allCars", carService.searchByBrandAndPrice(car.getBrand(),priceFrom,priceTo));
+            if (!carFilter.getBrand().equals("all") && (carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && ((carFilter.getPriceFrom() > 0) || (carFilter.getPriceTo() < 2147483647))) {
+                model1.addAttribute("allCars", carService.searchByBrandAndPrice(carFilter.getBrand(),carFilter.getPriceFrom(),carFilter.getPriceTo()));
             }
 
             //model, price
-            if (brand.equals("all") && (!model.equals("all")) && ((yearFrom != 1899) || (yearTo != 2020)) && ((priceFrom > 0) || (priceTo < 2147483647))) {
-                model1.addAttribute("allCars", carService.searchByModelAndPrice(car.getModel(),priceFrom,priceTo));
+            if (carFilter.getBrand().equals("all") && (!carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && ((carFilter.getPriceFrom() > 0) || (carFilter.getPriceTo() < 2147483647))) {
+                model1.addAttribute("allCars", carService.searchByModelAndPrice(carFilter.getModel(),carFilter.getPriceFrom(),carFilter.getPriceTo()));
             }
 
             //year, price
-            if (brand.equals("all") && (model.equals("all")) && ((yearFrom != 1899) || (yearTo != 2020)) && ((priceFrom > 0) || (priceTo < 2147483647))) {
-                model1.addAttribute("allCars", carService.searchByYearAndPrice(yearFrom,yearTo,priceFrom,priceTo));
+            if (carFilter.getBrand().equals("all") && (carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && ((carFilter.getPriceFrom() > 0) || (carFilter.getPriceTo() < 2147483647))) {
+                model1.addAttribute("allCars", carService.searchByYearAndPrice(carFilter.getYearFrom(),carFilter.getYearTo(),carFilter.getPriceFrom(),carFilter.getPriceTo()));
             }
 
             // brand,model,price
-            if (!brand.equals("all") && (!model.equals("all")) && ((yearFrom != 1899) || (yearTo != 2020)) && ((priceFrom > 0) || (priceTo < 2147483647))) {
-                model1.addAttribute("allCars", carService.searchByBrandAndModelAndPrice(car.getModel(),car.getModel(),priceFrom,priceTo));
+            if (!carFilter.getBrand().equals("all") && (!carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && ((carFilter.getPriceFrom() > 0) || (carFilter.getPriceTo() < 2147483647))) {
+                model1.addAttribute("allCars", carService.searchByBrandAndModelAndPrice(carFilter.getModel(),carFilter.getModel(),carFilter.getPriceFrom(),carFilter.getPriceTo()));
             }
 
             // brand, year, price
-            if (!brand.equals("all") && (model.equals("all")) && ((yearFrom != 1899) || (yearTo != 2020)) && ((priceFrom > 0) || (priceTo < 2147483647))) {
-                model1.addAttribute("allCars", carService.searchByBrandAndYearAndPrice(car.getBrand(),yearFrom,yearTo,priceFrom,priceTo));
+            if (!carFilter.getBrand().equals("all") && (carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && ((carFilter.getPriceFrom() > 0) || (carFilter.getPriceTo() < 2147483647))) {
+                model1.addAttribute("allCars", carService.searchByBrandAndYearAndPrice(carFilter.getBrand(),carFilter.getYearFrom(),carFilter.getYearTo(),carFilter.getPriceFrom(),carFilter.getPriceTo()));
             }
 
             // model, year, price
-            if (brand.equals("all") && (!model.equals("all")) && ((yearFrom != 1899) || (yearTo != 2020)) && ((priceFrom > 0) || (priceTo < 2147483647))) {
-                model1.addAttribute("allCars", carService.searchByModelAndYearAndPrice(car.getModel(),yearFrom,yearTo,priceFrom,priceTo));
+            if (carFilter.getBrand().equals("all") && (!carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && ((carFilter.getPriceFrom() > 0) || (carFilter.getPriceTo() < 2147483647))) {
+                model1.addAttribute("allCars", carService.searchByModelAndYearAndPrice(carFilter.getModel(),carFilter.getYearFrom(),carFilter.getYearTo(),carFilter.getPriceFrom(),carFilter.getPriceTo()));
             }
             // brand, model, year, price
-            if (!brand.equals("all") && (!model.equals("all")) && ((yearFrom != 1899) || (yearTo != 2020)) && ((priceFrom > 0) || (priceTo < 2147483647))) {
-                model1.addAttribute("allCars", carService.searchByBrandAndModelAndYearAndPrice(car.getBrand(),car.getModel(),yearFrom,yearTo,priceFrom,priceTo));
+            if (!carFilter.getBrand().equals("all") && (!carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && ((carFilter.getPriceFrom() > 0) || (carFilter.getPriceTo() < 2147483647))) {
+                model1.addAttribute("allCars", carService.searchByBrandAndModelAndYearAndPrice(carFilter.getBrand(),carFilter.getModel(),carFilter.getYearFrom(),carFilter.getYearTo(),carFilter.getPriceFrom(),carFilter.getPriceTo()));
             }
         }
         return "carSearch";
