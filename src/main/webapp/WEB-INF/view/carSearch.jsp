@@ -45,13 +45,13 @@
     </div>
     <div>
         <br>Year<br>
-        <input type="text" name="yearFrom" value="1900">
-        <input type="text" name="yearTo" >
+        <input type="text" name="yearFrom" value="1900" >
+        <input type="text" name="yearTo" value="2018" >
     </div>
     <div>
         <br>Price<br>
         <input type="text" name="priceFrom" value="0">
-        <input type="text" name="priceTo" >
+        <input type="text" name="priceTo" value="2147483647">
     </div>
     <div>
         <button type="submit" name="search" value="search">search</button>
