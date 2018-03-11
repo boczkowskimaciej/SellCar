@@ -1,6 +1,7 @@
 package service;
 
 import entity.CarEntity;
+import help.CarFilter;
 import model.Car;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -57,55 +58,97 @@ public class CarService {
         return carList;
     }
 
-    public List<Car> searchByBrand(String brand){
-        return fromEntityToModel(carRepository.searchByBrand(brand));
-    }
+    public List<Car> searchBy(CarFilter carFilter){
+        if (carFilter.getBrand() == null && (carFilter.getModel()) == null && (carFilter.getYearFrom() == 0)
+                && (carFilter.getYearTo() == 0) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 0)) {
+            return fromEntityToModel(carRepository.findAll());
+        }
+        else {
+            //all
+            if (carFilter.getBrand().equals("all") && (carFilter.getModel().equals("all")) && (carFilter.getYearFrom() == 1900)
+                    && (carFilter.getYearTo() == 2018) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 2147483647)) {
+                return fromEntityToModel(carRepository.findAll());
+            }
 
-    public List<Car> searchByModel(String model){
-        return fromEntityToModel(carRepository.searchByModel(model));
-    }
+            //brand
+            if (!carFilter.getBrand().equals("all") && (carFilter.getModel().equals("all")) && (carFilter.getYearFrom() == 1900)
+                    && (carFilter.getYearTo() == 2018) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 2147483647)) {
+                return fromEntityToModel(carRepository.searchByBrand(carFilter.getBrand()));
+            }
 
-    public List<Car> searchByBrandAndModel(String brand,String model){
-        return fromEntityToModel(carRepository.searchByBrandAndModel(brand,model));
-    }
-
-    public List<Car> searchByYear(int yearFrom,int yearTo){
-        return fromEntityToModel(carRepository.searchByYear(yearFrom,yearTo));
-    }
-    public List<Car> searchByBrandAndYear(String brand,int yearFrom,int yearTo){
-        return fromEntityToModel(carRepository.searchByBrandAndYear(brand,yearFrom,yearTo));
-    }
-    public List<Car> searchByModelAndYear(String model,int yearFrom,int yearTo){
-        return fromEntityToModel(carRepository.searchByModelAndYear(model,yearFrom,yearTo));
-    }
-    public List<Car> searchByBrandAndModelAndYear(String brand,String model,int yearFrom,int yearTo){
-        return fromEntityToModel(carRepository.searchByBrandAndModelAndYear(brand,model,yearFrom,yearTo));
-    }
-
-    public List<Car> searchByPrice(int priceFrom, int priceTo){
-        return fromEntityToModel(carRepository.searchByPrice(priceFrom,priceTo));
-    }
-    public List<Car> searchByBrandAndPrice(String brand,int priceFrom, int priceTo){
-        return fromEntityToModel(carRepository.searchByBrandAndPrice(brand,priceFrom,priceTo));
-    }
-    public List<Car> searchByModelAndPrice(String model,int priceFrom, int priceTo){
-        return fromEntityToModel(carRepository.searchByModelAndPrice(model,priceFrom,priceTo));
-    }
-    public List<Car> searchByYearAndPrice(int yearFrom,int yearTo,int priceFrom, int priceTo){
-        return fromEntityToModel(carRepository.searchByYearAndPrice(yearFrom,yearTo,priceFrom,priceTo));
-    }
-    public List<Car> searchByBrandAndModelAndPrice(String brand,String model,int priceFrom, int priceTo){
-        return fromEntityToModel(carRepository.searchByBrandAndModelAndPrice(brand,model,priceFrom,priceTo));
-    }
-
-    public List<Car> searchByBrandAndYearAndPrice(String brand,int yearFrom,int yearTo,int priceFrom, int priceTo){
-        return fromEntityToModel(carRepository.searchByBrandAndYearAndPrice(brand,yearFrom,yearTo,priceFrom,priceTo));
-    }
-    public List<Car> searchByModelAndYearAndPrice(String model,int yearFrom,int yearTo,int priceFrom, int priceTo){
-        return fromEntityToModel(carRepository.searchByModelAndYearAndPrice(model,yearFrom,yearTo,priceFrom,priceTo));
-    }
-    public List<Car> searchByBrandAndModelAndYearAndPrice(String brand,String model,int yearFrom,int yearTo,int priceFrom, int priceTo){
-        return fromEntityToModel(carRepository.searchByBrandAndModelAndYearAndPrice(brand,model,yearFrom,yearTo,priceFrom,priceTo));
+            //model
+            if (carFilter.getBrand().equals("all") && (!carFilter.getModel().equals("all")) && (carFilter.getYearFrom() == 1900)
+                    && (carFilter.getYearTo() == 2018) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 2147483647)) {
+                return fromEntityToModel(carRepository.searchByModel(carFilter.getModel()));
+            }
+            //brand, model
+            if (!carFilter.getBrand().equals("all") && (!carFilter.getModel().equals("all")) && (carFilter.getYearFrom() == 1900) &&
+                    (carFilter.getYearTo() == 2018) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 2147483647)) {
+                return fromEntityToModel(carRepository.searchByBrandAndModel(carFilter.getBrand(), carFilter.getModel()));
+            }
+            //year
+            if (carFilter.getBrand().equals("all") && (carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 2147483647)) {
+                return fromEntityToModel(carRepository.searchByYear(carFilter.getYearFrom(), carFilter.getYearTo()));
+            }
+            //brand, year
+            if (!carFilter.getBrand().equals("all") && (carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 2147483647)) {
+                return fromEntityToModel(carRepository.searchByBrandAndYear(carFilter.getBrand(), carFilter.getYearFrom(), carFilter.getYearTo()));
+            }
+            //model, year
+            if (carFilter.getBrand().equals("all") && (!carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 2147483647)) {
+                return fromEntityToModel(carRepository.searchByModelAndYear(carFilter.getModel(), carFilter.getYearFrom(), carFilter.getYearTo()));
+            }
+            //brand, model, year
+            if (!carFilter.getBrand().equals("all") && (!carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && (carFilter.getPriceFrom() == 0) && (carFilter.getPriceTo() == 2147483647)) {
+                return fromEntityToModel(carRepository.searchByBrandAndModelAndYear(carFilter.getBrand(), carFilter.getModel(),
+                        carFilter.getYearFrom(), carFilter.getYearTo()));
+            }
+            // price
+            if (carFilter.getBrand().equals("all") && (carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && ((carFilter.getPriceFrom() > 0) || (carFilter.getPriceTo() < 2147483647))) {
+                return fromEntityToModel(carRepository.searchByPrice(carFilter.getPriceFrom(), carFilter.getPriceTo()));
+            }
+            //brand, price
+            if (!carFilter.getBrand().equals("all") && (carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && ((carFilter.getPriceFrom() > 0) || (carFilter.getPriceTo() < 2147483647))) {
+                return fromEntityToModel(carRepository.searchByBrandAndPrice(carFilter.getBrand(), carFilter.getPriceFrom(), carFilter.getPriceTo()));
+            }
+            //model, price
+            if (carFilter.getBrand().equals("all") && (!carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && ((carFilter.getPriceFrom() > 0) || (carFilter.getPriceTo() < 2147483647))) {
+                return fromEntityToModel(carRepository.searchByModelAndPrice(carFilter.getModel(), carFilter.getPriceFrom(), carFilter.getPriceTo()));
+            }
+            //year, price
+            if (carFilter.getBrand().equals("all") && (carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && ((carFilter.getPriceFrom() > 0) || (carFilter.getPriceTo() < 2147483647))) {
+                return fromEntityToModel(carRepository.searchByYearAndPrice(carFilter.getYearFrom(), carFilter.getYearTo(), carFilter.getPriceFrom(), carFilter.getPriceTo()));
+            }
+            // brand,model,price
+            if (!carFilter.getBrand().equals("all") && (!carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && ((carFilter.getPriceFrom() > 0) || (carFilter.getPriceTo() < 2147483647))) {
+                return fromEntityToModel(carRepository.searchByBrandAndModelAndPrice(carFilter.getModel(), carFilter.getModel(), carFilter.getPriceFrom(), carFilter.getPriceTo()));
+            }
+            // brand, year, price
+            if (!carFilter.getBrand().equals("all") && (carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && ((carFilter.getPriceFrom() > 0) || (carFilter.getPriceTo() < 2147483647))) {
+                return fromEntityToModel(carRepository.searchByBrandAndYearAndPrice(carFilter.getBrand(), carFilter.getYearFrom(), carFilter.getYearTo(), carFilter.getPriceFrom(), carFilter.getPriceTo()));
+            }
+            // model, year, price
+            if (carFilter.getBrand().equals("all") && (!carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+                    (carFilter.getYearTo() != 2018)) && ((carFilter.getPriceFrom() > 0) || (carFilter.getPriceTo() < 2147483647))) {
+                return fromEntityToModel(carRepository.searchByModelAndYearAndPrice(carFilter.getModel(), carFilter.getYearFrom(), carFilter.getYearTo(), carFilter.getPriceFrom(), carFilter.getPriceTo()));
+            }
+            // brand, model, year, price
+        else {
+//                if (!carFilter.getBrand().equals("all") && (!carFilter.getModel().equals("all")) && ((carFilter.getYearFrom() != 1900) ||
+//                    (carFilter.getYearTo() != 2018)) && ((carFilter.getPriceFrom() > 0) || (carFilter.getPriceTo() < 2147483647))) {
+                return fromEntityToModel(carRepository.searchByBrandAndModelAndYearAndPrice(carFilter.getBrand(), carFilter.getModel(), carFilter.getYearFrom(), carFilter.getYearTo(), carFilter.getPriceFrom(), carFilter.getPriceTo()));
+            }
+        }
     }
 
 }
