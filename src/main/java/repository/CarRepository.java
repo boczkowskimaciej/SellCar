@@ -2,7 +2,9 @@ package repository;
 
 
 import entity.CarEntity;
+import help.CarFilter;
 import model.Car;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,6 +14,7 @@ import java.util.List;
 
 @Repository
 public interface CarRepository extends JpaRepository<CarEntity, Long> {
+
 
     @Query("SELECT c FROM CarEntity c WHERE brand LIKE ?1%")
     List<CarEntity> searchByBrand(String brand);
