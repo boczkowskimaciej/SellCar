@@ -15,10 +15,6 @@ public class CarService {
 
     private CarRepository carRepository;
 
-//    public CarService() {
-//    }
-
-//    @Autowired
     public CarService(CarRepository carRepository) {
         this.carRepository = carRepository;
     }
@@ -38,7 +34,6 @@ public class CarService {
     public List<Car> displayAllCars(){
         return fromEntityToModel(carRepository.findAll());
     }
-
 
     public CarEntity fromModelToEntity(Car carModel){
         return new CarEntity(carModel.getId(),carModel.getBrand(),
@@ -150,5 +145,7 @@ public class CarService {
             }
         }
     }
+
+
 
 }

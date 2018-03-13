@@ -14,6 +14,9 @@
 <body>
 
 <form method="post" >
+    <div>
+        <button type="submit" name="login" value="login">Login</button>
+    </div>
 
 <c:forEach items="${allCars}" var="car">
     <li>${car.brand} ${car.model} ${car.year}

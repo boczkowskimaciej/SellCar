@@ -13,20 +13,11 @@ public class CarEntity {
     private String model;
     private int year;
     private String link;
-
     private int price;
-
-
 
     public CarEntity() {
     }
 
-//    public CarEntity(String brand, String model, int year, String link) {
-//        this.brand = brand;
-//        this.model = model;
-//        this.year = year;
-//        this.link = link;
-//    }
     public CarEntity(String brand, String model, int year, String link, int price) {
         this.brand = brand;
         this.model = model;
@@ -34,14 +25,6 @@ public class CarEntity {
         this.link = link;
         this.price = price;
     }
-
-//    public CarEntity(Long id, String brand, String model, int year, String link) {
-//        this.id = id;
-//        this.brand = brand;
-//        this.model = model;
-//        this.year = year;
-//        this.link = link;
-//    }
 
     public CarEntity(Long id, String brand, String model, int year, String link, int price) {
         this.id = id;
@@ -51,9 +34,6 @@ public class CarEntity {
         this.link = link;
         this.price = price;
     }
-
-
-
 
     public Long getId() {
         return id;

@@ -2,19 +2,36 @@ package web;
 
 import help.CarFilter;
 import model.Car;
+import model.Holder;
+import model.Password;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import service.CarService;
+import service.HolderService;
+import service.PasswordService;
 
 @Controller
 @RequestMapping("/display")
 public class SellCarController {
 
     private CarService carService;
+    private HolderService holderService;
+    private PasswordService passwordService;
 
-    public SellCarController(CarService carService) {
+//    public SellCarController(CarService carService) {
+//        this.carService = carService;
+//    }
+//
+//    public SellCarController(HolderService holderService) {
+//        this.holderService = holderService;
+//    }
+
+
+    public SellCarController(CarService carService, HolderService holderService, PasswordService passwordService) {
         this.carService = carService;
+        this.holderService = holderService;
+        this.passwordService = passwordService;
     }
 
     @GetMapping("")
@@ -23,30 +40,13 @@ public class SellCarController {
         return "car";
     }
 
-//    @PostMapping
-//    public String addCar(@ModelAttribute Car car, Model model,
-//                         @RequestParam(name = "addCar", defaultValue = "") String requestAdd){
-//        if (requestAdd.equals("addCar")){
-//            carService.addCar(car);
-//            model.addAttribute("allCars",carService.displayAllCars());
-//        }
-//        return "redirect:display";
-//    }
-
-
-//    @PostMapping
-//    public String removeCar(Model model,
-//                             @RequestParam(name = "removeCar", defaultValue = "") String requestRemove){
-//                carService.removeCarById(Long.valueOf(requestRemove));
-//                model.addAttribute("allCars",carService.displayAllCars());
-//        return "redirect:display";
-//    }
 
     @PostMapping
     public String action(@ModelAttribute Car car,
                        Model model,
                        @RequestParam(name = "addCar", defaultValue = "") String requestAdd,
                        @RequestParam(name = "removeCar", defaultValue = "") String requestRemove,
+                       @RequestParam(name = "login", defaultValue = "") String login,
                        @RequestParam(name = "search", defaultValue = "") String search){
         if (requestAdd.equals("addCar")){
             carService.addCar(car);
@@ -55,6 +55,9 @@ public class SellCarController {
         }
         if (search.equals("search")){
             return "redirect:display/search";
+        }
+        if (login.equals("login")){
+            return "redirect:display/login";
         }
 
         if (Long.valueOf(requestRemove) != null){
@@ -66,6 +69,36 @@ public class SellCarController {
         {
             throw new IllegalArgumentException();
         }
+    }
+
+    @RequestMapping("/login")
+    public String login(
+            @RequestParam(name = "email", defaultValue = "") String email,
+            @RequestParam(name = "password", defaultValue = "") String password,
+            @RequestParam(name = "register", defaultValue = "") String register){
+        if (register.equals("register")){
+//            return "redirect:register";
+            return "redirect:login/register";
+        }
+        return "login";
+    }
+
+    @RequestMapping("login/register")
+    public String register(
+            @ModelAttribute Holder holder,
+//            @ModelAttribute Password password,
+            @RequestParam(name = "password", defaultValue = "") String password,
+            @RequestParam(name = "register", defaultValue = "") String register){
+
+        if (register.equals("register")){
+            holderService.addHolder(holder);
+            passwordService.addPassword(new Password(password,holder.getId()));
+//            passwordService.addPassword(password);
+//            passwordService.addIdHolderAndPassword(holder.getId(),password);
+            return "registered";
+        }
+
+        return "register";
     }
 
     @RequestMapping("/search")
