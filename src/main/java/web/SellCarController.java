@@ -92,9 +92,8 @@ public class SellCarController {
 
         if (register.equals("register")){
             holderService.addHolder(holder);
-            passwordService.addPassword(new Password(password,holder.getId()));
+            passwordService.addPassword(new Password(password,holder));
 //            passwordService.addPassword(password);
-//            passwordService.addIdHolderAndPassword(holder.getId(),password);
             return "registered";
         }
 

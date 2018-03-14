@@ -1,7 +1,5 @@
 package entity;
 
-import model.Holder;
-
 import javax.persistence.*;
 
 @Entity
@@ -13,20 +11,22 @@ public class PasswordEntity {
     private Long id;
     private String value;
 
-    private Long holderId;
+    @OneToOne
+    @JoinColumn(name = "holderId")
+    private HolderEntity holderEntity;
 
     public PasswordEntity() {
     }
 
-    public PasswordEntity(String value, Long holderId) {
+    public PasswordEntity(String value, HolderEntity holderEntity) {
         this.value = value;
-        this.holderId = holderId;
+        this.holderEntity = holderEntity;
     }
 
-    public PasswordEntity(Long id, String value, Long holderId) {
+    public PasswordEntity(Long id, String value, HolderEntity holderEntity) {
         this.id = id;
         this.value = value;
-        this.holderId = holderId;
+        this.holderEntity = holderEntity;
     }
 
     public Long getId() {
@@ -45,11 +45,11 @@ public class PasswordEntity {
         this.value = value;
     }
 
-    public Long getHolderId() {
-        return holderId;
+    public HolderEntity getHolderEntity() {
+        return holderEntity;
     }
 
-    public void setHolderId(Long holderId) {
-        this.holderId = holderId;
+    public void setHolderEntity(HolderEntity holderEntity) {
+        this.holderEntity = holderEntity;
     }
 }

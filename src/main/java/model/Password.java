@@ -6,20 +6,20 @@ public class Password {
 
     private String value;
 
-    private Long holderId;
+    private Holder holder;
 
     public Password() {
     }
 
-    public Password(Long id, String value, Long holderId) {
+    public Password(Long id, String value, Holder holder) {
         this.id = id;
         this.value = value;
-        this.holderId = holderId;
+        this.holder = holder;
     }
 
-    public Password(String value, Long holderId) {
+    public Password(String value, Holder holder) {
         this.value = value;
-        this.holderId = holderId;
+        this.holder = holder;
     }
 
     public Long getId() {
@@ -38,12 +38,12 @@ public class Password {
         this.value = value;
     }
 
-    public Long getHolderId() {
-        return holderId;
+    public Holder getHolder() {
+        return holder;
     }
 
-    public void setHolderId(Long holderId) {
-        this.holderId = holderId;
+    public void setHolder(Holder holder) {
+        this.holder = holder;
     }
 }
 
